@@ -96,6 +96,7 @@ export default function TodoPage() {
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               placeholder="新しいタスクを入力..."
+              aria-label="新しいタスク"
               className="flex-1 px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
             />
             <button
@@ -160,6 +161,7 @@ export default function TodoPage() {
                     type="checkbox"
                     checked={todo.completed}
                     onChange={() => toggleTodo(todo.id)}
+                    aria-label={`${todo.text} を完了にする`}
                     className="w-5 h-5 text-indigo-600 rounded focus:ring-2 focus:ring-indigo-500 cursor-pointer"
                   />
                   <span
