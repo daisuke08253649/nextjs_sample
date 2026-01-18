@@ -37,25 +37,25 @@ export default function TodoPage() {
     if (inputValue.trim() === '') return;
 
     const newTodo = {
-      id: Date.now(),
+      id: crypto.randomUUID(),
       text: inputValue,
       completed: false,
       createdAt: new Date().toISOString(),
     };
 
-    setTodos([...todos, newTodo]);
+    setTodos((prev) => [...prev, newTodo]);
     setInputValue('');
   };
 
   // Todoを削除
   const deleteTodo = (id) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
+    setTodos((prev) => prev.filter((todo) => todo.id !== id));
   };
 
   // Todoの完了状態をトグル
   const toggleTodo = (id) => {
-    setTodos(
-      todos.map((todo) =>
+    setTodos((prev) =>
+      prev.map((todo) =>
         todo.id === id ? { ...todo, completed: !todo.completed } : todo
       )
     );
@@ -63,7 +63,7 @@ export default function TodoPage() {
 
   // 全ての完了したTodoを削除
   const clearCompleted = () => {
-    setTodos(todos.filter((todo) => !todo.completed));
+    setTodos((prev) => prev.filter((todo) => !todo.completed));
   };
 
   // フィルタリングされたTodoを取得
@@ -112,6 +112,7 @@ export default function TodoPage() {
         <div className="flex gap-2 mb-4">
           <button
             onClick={() => setFilter('all')}
+            aria-pressed={filter === 'all'}
             className={`px-4 py-2 rounded-lg font-medium transition-colors ${
               filter === 'all'
                 ? 'bg-indigo-600 text-white'
@@ -122,6 +123,7 @@ export default function TodoPage() {
           </button>
           <button
             onClick={() => setFilter('active')}
+            aria-pressed={filter === 'active'}
             className={`px-4 py-2 rounded-lg font-medium transition-colors ${
               filter === 'active'
                 ? 'bg-indigo-600 text-white'
@@ -132,6 +134,7 @@ export default function TodoPage() {
           </button>
           <button
             onClick={() => setFilter('completed')}
+            aria-pressed={filter === 'completed'}
             className={`px-4 py-2 rounded-lg font-medium transition-colors ${
               filter === 'completed'
                 ? 'bg-indigo-600 text-white'
