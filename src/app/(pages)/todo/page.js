@@ -11,7 +11,14 @@ export default function TodoPage() {
   useEffect(() => {
     const savedTodos = localStorage.getItem('todos');
     if (savedTodos) {
-      setTodos(JSON.parse(savedTodos));
+      try {
+        const parsed = JSON.parse(savedTodos);
+        if (Array.isArray(parsed)) {
+          setTodos(parsed);
+        }
+      } catch {
+        localStorage.removeItem('todos');
+      }
     }
   }, []);
 
@@ -19,6 +26,8 @@ export default function TodoPage() {
   useEffect(() => {
     if (todos.length > 0) {
       localStorage.setItem('todos', JSON.stringify(todos));
+    } else {
+      localStorage.removeItem('todos');
     }
   }, [todos]);
 
