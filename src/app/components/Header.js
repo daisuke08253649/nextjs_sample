@@ -23,6 +23,11 @@ export default function Header() {
               Contact
             </Link>
           </li>
+          <li>
+            <Link href="/todo" className="text-white">
+              Todo
+            </Link>
+          </li>
         </ul>
       </div>
     </header>
